@@ -26,7 +26,7 @@ open generic RestClient\<TClient\> that acts like a factory for a TClient. Each 
         });
     }
     ```
-1. Consume the inteface via RestClient\<T\>.
+1. Consume the interface via RestClient\<T\>.
     ```csharp
     public class HomeController : Controller
     {
