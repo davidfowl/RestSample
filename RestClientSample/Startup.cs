@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using Refit;
 
-namespace WebApplication34
+namespace RestClientSample
 {
     public class Startup
     {
@@ -15,6 +17,7 @@ namespace WebApplication34
             services.AddRestClient<IConferencePlannerApi>(o =>
             {
                 o.Url = "https://conferenceplanner-api.azurewebsites.net/";
+                o.UseMyMessageHandler();
             });
 
             services.AddMvc();

@@ -4,13 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace WebApplication34
+namespace RestClientSample
 {
     public class HomeController : Controller
     {
         private readonly IConferencePlannerApi _client;
 
-        public HomeController(RestClient<IConferencePlannerApi> api)
+        public HomeController(IRestClient<IConferencePlannerApi> api)
         {
             _client = api.Client;
         }

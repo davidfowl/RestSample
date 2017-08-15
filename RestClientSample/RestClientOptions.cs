@@ -1,16 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Threading.Tasks;
-using Refit;
 
-namespace WebApplication34
+namespace RestClientSample
 {
-    public class RestClientOptions<TClient>
+    public class RestClientOptions<TClient> : IHttpClientBuilder
     {
+        private List<DelegatingHandler> _handlers = new List<DelegatingHandler>();
+
         public string Url { get; set; }
-        public RefitSettings Settings { get; set; }
         public HttpClient HttpClient { get; set; }
+
+        public HttpMessageHandler Build()
+        {
+            HttpMessageHandler current = new HttpClientHandler();
+
+            for (int i = _handlers.Count - 1; i >= 0; i--)
+            {
+                var handler = _handlers[i];
+                handler.InnerHandler = current;
+                current = handler;
+            }
+
+            return current;
+        }
+
+        public IHttpClientBuilder Use(DelegatingHandler handler)
+        {
+            _handlers.Add(handler);
+            return this;
+        }
     }
 }
